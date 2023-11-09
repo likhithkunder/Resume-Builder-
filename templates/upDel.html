@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <style>
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            display: block;
+            font-size: 2em;
+            margin-block-start: 0.67em;
+            margin-block-end: 0.67em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            font-weight: bold;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr {
+            font-size: 16px; 
+            color: #333; 
+            background-color: #FFFFFF;
+        }
+
+        tr:hover {
+            background-color: #dcdcdc;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='ud.css') }}">
+</head>
+<body>
+    <h1>Your {{title}}</h1>
+    <table>
+        <tr>
+        {% for column in columns %}
+            <th>{{ column }}</th>
+        {% endfor %}
+        </tr>
+        {% for value in data %}
+        <tr>
+            {% for item in value %}
+                <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form id="survey-form" action="/submission" method="post">
+
+        <!-- <div id="description"> Let us know how we can improve our service</div><br> -->
+
+        <fieldset class="fieldset">
+        
+            <div class="sub-group">
+                <label class="left" id="name-label" for="institute_name">ID to {{info}}:</label>
+                <input type="text" name="id" class="right input-field" id="name" placeholder="Enter ID" required>
+            </div>
+
+            {% if info == 'update' %}
+                <div class="sub-group">
+                    <label class="left" for="dropdown">Column to {{info}}</label>
+
+                    <select class="right dropdown" id="dropdown" name="dropdown">
+                        <option selected disabled>Select an option</option>
+                        {% for column in columns[1:] %}
+                            <option value="first">{{ column }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="sub-group">
+                    <label class="left" id="email-label" for="degree">Your {{info}}:</label>
+                    <input type="text" name="update" class="right input-field" placeholder="Enter update" id="email" required>
+                </div>
+            {% endif %}
+        </fieldset>
+    
+        <fieldset class="fieldset">
+            <h2>Any comments or suggestions?</h2>
+            <div class="commentbox">
+                <textarea rows="4"  placeholder="Enter your comment here..."></textarea>
+                <br></br>
+                <button id="submit" type="submit">Submit</button>
+            </div>
+        </fieldset>
+    </form>
+</body>
+</html>

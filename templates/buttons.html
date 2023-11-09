@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='buttons.css') }}">
+</head>
+<body>
+    <div class="button-container">
+        <form action="/buttonClick" method="post">
+            <input type="hidden" name="button_class" value="insert">
+            <button class="insert-button" name="type" value="{{message}}">Insert</button>
+        </form>
+        
+        <form action="/buttonClick" method="post">
+            <input type="hidden" name="button_class" value="update">
+            <button class="update-button" name="type" value="{{message}}">Update</button>
+        </form>
+    
+        <form action="/buttonClick" method="post">
+            <input type="hidden" name="button_class" value="delete">
+            <button class="delete-button" name="type" value="{{message}}">Delete</button>
+        </form>
+    </div>
+</body>
+</html>

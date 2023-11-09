@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.update-button, .delete-button, .insert-button {
+    width: 300px;
+    padding: 10px;
+    font-size: 30px;
+    margin: 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.update-button {
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+.update-button:hover {
+    opacity:0.7
+}
+
+.delete-button {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
+.delete-button:hover {
+    opacity:0.7
+}
+
+.insert-button {
+    background-color: #27ae60;
+    color: #ffffff;
+}
+
+.insert-button:hover {
+    opacity:0.7
+}

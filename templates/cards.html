@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slider Carousel Version 1</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}">
+</head>
+
+<body>
+
+  <div class="container">
+
+      <input type="radio" name="slider" class="d-none" id="s1" checked>
+      <input type="radio" name="slider" class="d-none" id="s2">
+      <input type="radio" name="slider" class="d-none" id="s3">
+      <input type="radio" name="slider" class="d-none" id="s4">
+      <input type="radio" name="slider" class="d-none" id="s5">
+
+      <div class="cards">
+        <label for="s1" id="slide1">
+          <form action="/cardFill" method="post">
+            <div class="card">
+              <div class="image">
+                <div class="dots">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+              <div class="infos">
+                <span class="name">Education</span>
+                <span class="lorem"> Education is the key to a brighter future, providing knowledge and opportunities for personal and societal growth.</span>
+              </div>
+              <button class="btn-contact" name="type" value="education" type="submit">Fill</button>
+              <!-- <div class="socials">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-bookmark"></i>
+                <i class="fa-solid fa-share-nodes"></i>
+              </div> -->
+            </div>
+          </form>
+        </label>
+
+        <label for="s2" id="slide2">
+          <form action="/cardFill" method="post">
+            <div class="card">
+              <div class="image">
+                <div class="dots">
+                  <div class="dot1"></div>
+                  <div class="dot2"></div>
+                  <div class="dot3"></div>
+                </div>
+              </div>
+              <div class="infos">
+                <span class="name">Skills</span>
+                <span class="lorem">Skills are the essential and vital tools that drive success, empowering individuals to adapt, innovate, and excel in various fields.</span>
+              </div>
+              <button class="btn-contact" name="type" value="skills" type="submit">Fill</button>
+              <!-- <div class="socials">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-bookmark"></i>
+                <i class="fa-solid fa-share-nodes"></i>
+              </div> -->
+            </div>
+          </form>
+        </label>
+
+        <label for="s3" id="slide3">
+          <form action="/cardFill" method="post">
+            <div class="card">
+              <div class="image">
+                <div class="dots">
+                  <div class="dot1"></div>
+                  <div class="dot2"></div>
+                  <div class="dot3"></div>
+                </div>
+              </div>
+              <div class="infos">
+                <span class="name">WorkExperience</span>
+                <span class="lorem">Work experience refines skills, builds a professional narrative, and forms the foundation of a successful career in life.</span>
+              </div>
+              <button class="btn-contact" name="type" value="workExp" type="submit">Fill</button>
+              <!-- <div class="socials">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-bookmark"></i>
+                <i class="fa-solid fa-share-nodes"></i>
+              </div> -->
+            </div>
+          </form>
+        </label>
+
+        <label for="s4" id="slide4">
+          <form action="/cardFill" method="post">
+            <div class="card">
+              <div class="image">
+                <div class="dots">
+                  <div class="dot1"></div>
+                  <div class="dot2"></div>
+                  <div class="dot3"></div>
+                </div>
+              </div>
+              <div class="infos">
+                <span class="name">Projects</span>
+                <span class="lorem">Projects are creative playgrounds for problem-solving and collaboration, where ideas come to life and innovation thrives.</span>
+              </div>
+              <button class="btn-contact" name="type" value="projects" type="submit">Fill</button>
+              <!-- <div class="socials">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-bookmark"></i>
+                <i class="fa-solid fa-share-nodes"></i>
+              </div> -->
+            </div>
+          </form>
+        </label>
+
+        <label for="s5" id="slide5">
+          <form action="/cardFill" method="post">
+            <div class="card">
+              <div class="image">
+                <div class="dots">
+                  <div class="dot1"></div>
+                  <div class="dot2"></div>
+                  <div class="dot3"></div>
+                </div>
+              </div>
+              <div class="infos">
+                <span class="name">Certificates</span>
+                <span class="lorem">Certificates are tangible proof of commitment to learning, validating expertise and opening doors to new opportunities.</span>
+              </div>
+              <button class="btn-contact" name="type" value="certificates" type="submit">Fill</button>
+              <!-- <div class="socials">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-bookmark"></i>
+                <i class="fa-solid fa-share-nodes"></i>
+              </div> -->
+            </div>
+          </form>
+        </label>
+      </div>
+      <form action="/generateResume" method="post">
+        <button class="generate-resume-btn" type="submit">Generate Resume</button>
+      </form>
+  </div>
+
+</body>
+</html>

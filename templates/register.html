@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <section>
+        <form action="/add_user" method="post">
+            <h1>Register</h1>
+            
+            <div class="inputbox">
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="text" name="name" required>
+                <label for="">Fullname</label>
+            </div>
+
+            <div class="inputbox">
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="number" name="phone_no" required>
+                <label for="">Phone number</label>
+            </div>
+
+            <div class="inputbox">
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="email" name="email" required>
+                <label for="">Email</label>
+            </div>
+            <div class="inputbox">
+                <p class="new">DOB</p>
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="date" required name="dob" >
+                <!-- <label for="">DOB</label> -->
+            </div>
+            <div class="inputbox">
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="text" name="user_name" required>
+                <label for="">Username</label>
+            </div>
+            <div class="inputbox">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <input type="password" name="password" required>
+                <label for="">Password</label>
+            </div>
+            <div class="inputbox">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <input type="password" name="conf_password" required>
+                <label for="">Confirm Password</label>
+            </div>
+            <div class="forget">
+                <label for=""><input type="checkbox">Remember Me</label>
+                <!-- <a href="#">Forget Password</a> -->
+            </div>
+            <button>Sign up</button>
+            <div class="register">
+                <p>Already have an account : <a href="/login">Login</a></p>
+            </div>
+        </form>
+    </section>
+</body>
+</html>

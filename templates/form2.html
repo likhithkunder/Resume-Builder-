@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Survey Form</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='form_style.css') }}">
+    </head>
+    <body>
+        <header>
+            <div id="title"><h1>WorkExperience</h1>
+        </header>
+
+        <form id="survey-form" action="/add_workExp" method="post">
+
+            <div id="description"> Let us know how we can improve our service</div><br>
+
+            <fieldset class="fieldset">
+            
+                <div class="sub-group">
+                    <label class="left" id="name-label" for="institute_name">Company:</label>
+                    <input type="text" name="company" class="right input-field" id="name" placeholder="Enter company name" required>
+                </div>
+              
+                <div class="sub-group">
+                    <label class="left" id="email-label" for="degree">Job Title:</label>
+                    <input type="text" name="job_title" class="right input-field" placeholder="Enter job title" id="email" required>
+                </div>
+
+                <div class="sub-group">
+                    <label class="left" id="email-label" for="degree">Job Description:</label>
+                    <input type="text" name="job_desc" class="right input-field" placeholder="Enter job description" id="email" required>
+                </div>
+              
+                <div class="sub-group">
+                    <label  class="left" id="number-label" for="number">No. of years:</label>
+                    <input type="number" name="no_of_years" placeholder="Enter the year" min="1" max="100" class="right input-field" id="number">
+                </div>
+              
+                <div class="sub-group">
+                    <label class="left" id="handphone-label" for="handphone">User ID:</label>
+                    <input type="text" name="user_id" placeholder="Enter your id" class="right input-field" id="handphone">
+                </div>
+              
+                <div class="sub-group">
+                    <label class="left" for="dropdown">How many hours do you spend  in a day working?</label>
+                
+                    <select class="right dropdown" id="dropdown" name="dropdown">
+                        <option selected disabled>Select an option</option>
+                        <option value="first">More than 7hrs</option>
+                        <option value="never">Less than 7hrs</option>
+                    </select>
+                </div>
+            </fieldset>
+        
+            <fieldset class="fieldset">
+                <h2>Any comments or suggestions?</h2>
+                <div class="commentbox">
+                    <textarea rows="4"  placeholder="Enter your comment here..."></textarea>
+                    <br></br>
+                    <button id="submit" type="submit">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+        </div>
+    </body>
+</html>
