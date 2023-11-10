@@ -1,9 +1,10 @@
-from flask import Flask, request, redirect, url_for, jsonify, render_template
+from flask import Flask, request, redirect, url_for, jsonify, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
 from datetime import datetime
 from sqlalchemy import text
 from dotenv import dotenv_values
+import secrets
 
 app = Flask(__name__)
 
@@ -188,7 +189,7 @@ def check_user():
             #     "phone_no": user[5]
             # }
             # return jsonify(user_dict) 
-            return render_template('cards.html')
+            return render_template('cards.html', message = "success", info = "Logged in Successfully")
         else:
             return redirect('/')
 
@@ -228,7 +229,7 @@ def add_skills():
             db.session.execute(insert_query, new_skill)
 
             db.session.commit()
-            return redirect(url_for('success'))
+            return render_template('cards.html', message = "success", info = "Details inserted successfully")
         except Exception as e:
             return f"An error occurred: {str(e)}"
         
@@ -254,7 +255,7 @@ def add_certificates():
             db.session.execute(insert_query, new_cert)
             
             db.session.commit()
-            return redirect(url_for('success'))
+            return render_template('cards.html', message = "success", info = "Details inserted successfully")
         except Exception as e:
             return f"An error occurred: {str(e)}"
 
@@ -280,7 +281,7 @@ def add_education():
             db.session.execute(insert_query, new_education)
             
             db.session.commit()
-            return redirect(url_for('success'))
+            return render_template('cards.html', message = "success", info = "Details inserted successfully")
         except Exception as e:
             return f"An error occurred: {str(e)}"
 
@@ -304,7 +305,7 @@ def add_project():
             db.session.execute(insert_query, new_project)
             
             db.session.commit()
-            return redirect(url_for('success'))
+            return render_template('cards.html', message = "success", info = "Details inserted successfully")
         except Exception as e:
             return f"An error occurred: {str(e)}"
 
@@ -332,7 +333,7 @@ def add_workExp():
             db.session.execute(insert_query, new_workExp)
             
             db.session.commit()
-            return redirect(url_for('success'))
+            return render_template('cards.html', message = "success", info = "Details inserted successfully")
         except Exception as e:
             return f"An error occurred: {str(e)}"           
 
@@ -355,10 +356,9 @@ def submission():
                 update_col = request.form['dropdown']
                 update_val = request.form['update']
                 update_query = text(f"UPDATE education SET {transform[update_col]} = :update_val WHERE ed_id = :id")
-
                 db.session.execute(update_query, {'update_val': update_val, 'id': id})
                 db.session.commit()
-                return redirect(url_for('success'))
+                return render_template('cards.html', message = "success", info = "Details updated successfully")
                 # conn = db.engine.connect()
                 # cursor = conn.connection.cursor()
 
@@ -369,11 +369,6 @@ def submission():
 
                 # sql_query = f"UPDATE education SET {transform[update_col]} = %s WHERE ed_id = %s"
                 # cursor.execute(sql_query, (update_val, id,))
-
-                conn.commit()
-                cursor.close()
-                conn.close()
-                return redirect(url_for('success'))
             except Exception as e:
                 return f"An error occurred: {str(e)}"
         elif title_name == 'Skills':
@@ -386,7 +381,7 @@ def submission():
 
                 db.session.execute(update_query, {'update_val': update_val, 'id': id})
                 db.session.commit()
-                return redirect(url_for('success'))
+                return render_template('cards.html', message = "success", info = "Details updated successfully")
             except Exception as e:
                 return f"An error occurred: {str(e)}"
         elif title_name == 'Projects':
@@ -399,7 +394,7 @@ def submission():
 
                 db.session.execute(update_query, {'update_val': update_val, 'id': id})
                 db.session.commit()
-                return redirect(url_for('success'))
+                return render_template('cards.html', message = "success", info = "Details updated successfully")
             except Exception as e:
                 return f"An error occurred: {str(e)}"
         elif title_name == 'Certificates':
@@ -412,7 +407,7 @@ def submission():
 
                 db.session.execute(update_query, {'update_val': update_val, 'id': id})
                 db.session.commit()
-                return redirect(url_for('success'))
+                return render_template('cards.html', message = "success", info = "Details updated successfully")
             except Exception as e:
                 return f"An error occurred: {str(e)}"
         elif title_name == 'Work':
@@ -425,7 +420,7 @@ def submission():
 
                 db.session.execute(update_query, {'update_val': update_val, 'id': id})
                 db.session.commit()
-                return redirect(url_for('success'))
+                return render_template('cards.html', message = "success", info = "Details updated successfully")
             except Exception as e:
                 return f"An error occurred: {str(e)}"
         # return "update"
@@ -437,7 +432,7 @@ def submission():
             try:
                 db.session.execute(delete_query, {"id": id})
                 db.session.commit()
-                return redirect(url_for('success'))
+                return render_template('cards.html', message = "success", info = "Details deleted successfully")
             except Exception as e:
                 return f"An error occurred: {str(e)}"
         elif title_name == 'Skills':
@@ -446,7 +441,7 @@ def submission():
             try:
                 db.session.execute(delete_query, {"id": id})
                 db.session.commit()
-                return redirect(url_for('success'))
+                return render_template('cards.html', message = "success", info = "Details updated successfully")
             except Exception as e:
                 return f"An error occurred: {str(e)}"
         elif title_name == 'Projects':
@@ -455,7 +450,7 @@ def submission():
             try:
                 db.session.execute(delete_query, {"id": id})
                 db.session.commit()
-                return redirect(url_for('success'))
+                return render_template('cards.html', message = "success", info = "Details updated successfully")
             except Exception as e:
                 return f"An error occurred: {str(e)}"
         elif title_name == 'Certificates':
@@ -464,7 +459,7 @@ def submission():
             try:
                 db.session.execute(delete_query, {"id": id})
                 db.session.commit()
-                return redirect(url_for('success'))
+                return render_template('cards.html', message = "success", info = "Details updated successfully")
             except Exception as e:
                 return f"An error occurred: {str(e)}"
         elif title_name == 'Work':
@@ -473,7 +468,7 @@ def submission():
             try:
                 db.session.execute(delete_query, {"id": id})
                 db.session.commit()
-                return redirect(url_for('success'))
+                return render_template('cards.html', message = "success", info = "Details updated successfully")
             except Exception as e:
                 return f"An error occurred: {str(e)}"
         #return "delete"

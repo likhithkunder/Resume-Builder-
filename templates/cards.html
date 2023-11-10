@@ -9,9 +9,14 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <script src="{{ url_for('static', filename='toast.js') }}"></script>
+
 </head>
 
 <body>
+  <ul class="notifications"></ul>
 
   <div class="container">
 
@@ -152,5 +157,9 @@
       </form>
   </div>
 
+  <script>
+    const messages = "{{ message }}";
+    const information = "{{info}}"
+  </script>
 </body>
 </html>
