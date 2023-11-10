@@ -110,6 +110,10 @@ body{
     font-size:23px;
     cursor: pointer;
   }
+
+  #submit:hover{
+    opacity: 0.7;
+  }
   
   label:hover{
     cursor:pointer;

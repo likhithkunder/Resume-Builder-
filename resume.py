@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.static_folder = 'static'
 
-conf = dotenv_values(".env")
+conf = dotenv_values(".env.local")
 
 username = conf['USERNAME']
 password = conf['PASSWORD']
@@ -338,7 +338,145 @@ def add_workExp():
 
 @app.route('/generateResume', methods=['POST'])
 def generateResume():
-    return render_template("res.html") 
+    # return render_template("res.html") 
+    return redirect("/join_tables/c4bc4")
+
+@app.route('/submission', methods=['POST'])
+def submission():
+    info_type = request.form.get("type")
+    title_name = request.form['title_name']
+    print(title_name)
+    # print(request.form)
+    if info_type == 'update':
+        if title_name == 'Education':
+            try:
+                transform = {'Institute Name': 'institute_name', 'Degree': 'degree', 'Graduation Year': 'graduation_year'}
+                id = request.form['id']
+                update_col = request.form['dropdown']
+                update_val = request.form['update']
+                update_query = text(f"UPDATE education SET {transform[update_col]} = :update_val WHERE ed_id = :id")
+
+                db.session.execute(update_query, {'update_val': update_val, 'id': id})
+                db.session.commit()
+                return redirect(url_for('success'))
+                # conn = db.engine.connect()
+                # cursor = conn.connection.cursor()
+
+                # transform = {'Institute Name': 'institute_name', 'Degree': 'degree', 'Graduation Year': 'graduation_year'}
+                # id = request.form['id']
+                # update_col = request.form['dropdown']
+                # update_val = request.form['update']
+
+                # sql_query = f"UPDATE education SET {transform[update_col]} = %s WHERE ed_id = %s"
+                # cursor.execute(sql_query, (update_val, id,))
+
+                conn.commit()
+                cursor.close()
+                conn.close()
+                return redirect(url_for('success'))
+            except Exception as e:
+                return f"An error occurred: {str(e)}"
+        elif title_name == 'Skills':
+            try:
+                transform = {'Skill Name': 'skill_name', 'Proficiency': 'proficiency'}
+                id = request.form['id']
+                update_col = request.form['dropdown']
+                update_val = request.form['update']
+                update_query = text(f"UPDATE skills SET {transform[update_col]} = :update_val WHERE skill_id = :id")
+
+                db.session.execute(update_query, {'update_val': update_val, 'id': id})
+                db.session.commit()
+                return redirect(url_for('success'))
+            except Exception as e:
+                return f"An error occurred: {str(e)}"
+        elif title_name == 'Projects':
+            try:
+                transform = {'Project Name': 'project_name', 'Project Description': 'proj_desc'}
+                id = request.form['id']
+                update_col = request.form['dropdown']
+                update_val = request.form['update']
+                update_query = text(f"UPDATE projects SET {transform[update_col]} = :update_val WHERE project_id = :id")
+
+                db.session.execute(update_query, {'update_val': update_val, 'id': id})
+                db.session.commit()
+                return redirect(url_for('success'))
+            except Exception as e:
+                return f"An error occurred: {str(e)}"
+        elif title_name == 'Certificates':
+            try:
+                transform = {'Certificate Name': 'certificate_name', 'Organisation': 'organisation', 'Issue Date': 'issue_date'}
+                id = request.form['id']
+                update_col = request.form['dropdown']
+                update_val = request.form['update']
+                update_query = text(f"UPDATE certificates SET {transform[update_col]} = :update_val WHERE c_id = :id")
+
+                db.session.execute(update_query, {'update_val': update_val, 'id': id})
+                db.session.commit()
+                return redirect(url_for('success'))
+            except Exception as e:
+                return f"An error occurred: {str(e)}"
+        elif title_name == 'Work':
+            try:
+                transform = {'Company': 'company', 'Job Title': 'job_title', 'Job Description': 'job_desc', 'Number of Years': 'no_of_years'}
+                id = request.form['id']
+                update_col = request.form['dropdown']
+                update_val = request.form['update']
+                update_query = text(f"UPDATE works_exp SET {transform[update_col]} = :update_val WHERE exp_id = :id")
+
+                db.session.execute(update_query, {'update_val': update_val, 'id': id})
+                db.session.commit()
+                return redirect(url_for('success'))
+            except Exception as e:
+                return f"An error occurred: {str(e)}"
+        # return "update"
+
+    elif info_type == 'delete':
+        if title_name == 'Education':
+            id = request.form['id']
+            delete_query = text("DELETE FROM education WHERE ed_id=:id")
+            try:
+                db.session.execute(delete_query, {"id": id})
+                db.session.commit()
+                return redirect(url_for('success'))
+            except Exception as e:
+                return f"An error occurred: {str(e)}"
+        elif title_name == 'Skills':
+            id = request.form['id']
+            delete_query = text("DELETE FROM skills WHERE skill_id=:id")
+            try:
+                db.session.execute(delete_query, {"id": id})
+                db.session.commit()
+                return redirect(url_for('success'))
+            except Exception as e:
+                return f"An error occurred: {str(e)}"
+        elif title_name == 'Projects':
+            id = request.form['id']
+            delete_query = text("DELETE FROM projects WHERE project_id=:id")
+            try:
+                db.session.execute(delete_query, {"id": id})
+                db.session.commit()
+                return redirect(url_for('success'))
+            except Exception as e:
+                return f"An error occurred: {str(e)}"
+        elif title_name == 'Certificates':
+            id = request.form['id']
+            delete_query = text("DELETE FROM certificates WHERE c_id=:id")
+            try:
+                db.session.execute(delete_query, {"id": id})
+                db.session.commit()
+                return redirect(url_for('success'))
+            except Exception as e:
+                return f"An error occurred: {str(e)}"
+        elif title_name == 'Work':
+            id = request.form['id']
+            delete_query = text("DELETE FROM works_exp WHERE exp_id=:id")
+            try:
+                db.session.execute(delete_query, {"id": id})
+                db.session.commit()
+                return redirect(url_for('success'))
+            except Exception as e:
+                return f"An error occurred: {str(e)}"
+        #return "delete"
 
 @app.route('/join_tables/<user_id>', methods=['GET'])
 def join_tables(user_id):
@@ -439,7 +577,7 @@ def join_tables(user_id):
             # user_info["education"] = list(set(user_info["education"]))    
             # user_info["projects"] = list(set(user_info["projects"]))    
             # user_info["works_exp"] = list(set(user_info["works_exp"]))    
-        return jsonify(user_info)
+        return user_info
     else:
         return "No user found."
 

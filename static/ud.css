@@ -1,7 +1,7 @@
 body{
     /* background-color:#FFFFFF; */
     background-image: url("dots.jpg");
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
     background-position: center;
     background-size: cover;
   }
@@ -110,6 +110,10 @@ body{
     border-radius:4px;
     font-size:23px;
     cursor: pointer;
+  }
+
+  #submit:hover{
+    opacity: 0.7
   }
   
   label:hover{

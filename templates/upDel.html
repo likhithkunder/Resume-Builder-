@@ -44,6 +44,7 @@
         }
     </style>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='ud.css') }}">
+    <script src="{{ url_for('static', filename='inputChange.js') }}"></script>
 </head>
 <body>
     <h1>Your {{title}}</h1>
@@ -63,9 +64,6 @@
     </table>
 
     <form id="survey-form" action="/submission" method="post">
-
-        <!-- <div id="description"> Let us know how we can improve our service</div><br> -->
-
         <fieldset class="fieldset">
         
             <div class="sub-group">
@@ -77,10 +75,10 @@
                 <div class="sub-group">
                     <label class="left" for="dropdown">Column to {{info}}</label>
 
-                    <select class="right dropdown" id="dropdown" name="dropdown">
+                    <select class="right dropdown" id="dropdown" name="dropdown" onchange="updateInputType()">
                         <option selected disabled>Select an option</option>
                         {% for column in columns[1:] %}
-                            <option value="first">{{ column }}</option>
+                            <option value="{{column}}">{{ column }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -97,9 +95,24 @@
             <div class="commentbox">
                 <textarea rows="4"  placeholder="Enter your comment here..."></textarea>
                 <br></br>
-                <button id="submit" type="submit">Submit</button>
+                <input type="hidden" name="title_name" value={{title}}>
+                <button id="submit" type="submit" name="type" value={{info}}>Submit</button>
             </div>
         </fieldset>
     </form>
+
+    <script>
+        function updateInputType() {
+            var dropdown = document.getElementById("dropdown");
+            var selectedColumn = dropdown.options[dropdown.selectedIndex].value;
+            var inputField = document.getElementById("email");
+
+            if (selectedColumn === "Issue Date") {
+                inputField.type = "date";
+            } else {
+                inputField.type = "text";
+            }
+        }
+    </script>
 </body>
 </html>
