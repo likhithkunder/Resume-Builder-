@@ -1,149 +1,166 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<meta charset="utf-8">
+	<title>Responsive Resume UI Design in HTML and CSS</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='resstyle.css') }}">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='res.css') }}">
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 </head>
 <body>
 
-<div class="main">
-	<div class="left">
-		<br>
-		<div class="profile-img"><img src="profile.png"></div>
-
-		<div class="box-1">
-			<div class="heading">
-				<p>CONTACT</p>
+<div class="resume_wrapper">
+	<div class="resume_left">
+		<!-- <div class="resume_image">
+			<img src="pic.jpg" alt="Resume_image">
+		</div> -->
+		<div class="resume_bottom">
+			<div class="resume_item resume_namerole">
+				<div class="name">{{details.user.name}}</div>
+				<div class="role">UI Designer</div>
 			</div>
-			<p class="p1"><i class="material-icons icons1">call</i>+123-324-5555</p>
-			<p class="p1"><i class="material-icons icons1">email</i>info@demo.com</p>
+			<div class="resume_item resume_profile">
+				<div class="resume_title">Profile</div>
+				<div class="resume_info">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+			</div>
+			<div class="resume_item resume_address">
+				<div class="resume_title">Address</div>
+				<div class="resume_info">
+					18th home,<br/>
+					woods street,<br/>
+					New York City, United States
+				</div>
+			</div>
+			<div class="resume_item resume_contact">
+				<div class="resume_title">Contact</div>
+				<div class="resume_info">
+					<div class="resume_subtitle">Phone</div>
+					<div class="resume_subinfo">+91 {{details.user.phone_no}}</div>
+				</div>
+				<div class="resume_info">
+					<div class="resume_subtitle">Email</div>
+					<div class="resume_subinfo">{{details.user.email}}</div>
+				</div>
+			</div>
+			<div class="resume_item resume_skills">
+				<div class="resume_title">Skills</div>
+				<div class="resume_info">
+				{% for skill in details.skills %}
+					{% set prof = {'Excellent': '95%', 'Good': '70%', 'Medium': '45%', 'Poor': '20%'} %}
+					<div class="skills_list">
+						<div class="skills_left">{{ skill.skill_name }}</div>
+						<div class="skills_bar">
+							<p>
+								<span style="width: {{ prof[skill.proficiency] }}"></span>
+							</p>
+						</div>
+					</div>
+				{% endfor %}
+				</div>
+			</div>
 		</div>
-
-		<div class="box-1">
-			<div class="heading">
-				<p>LANGUAGES</p>
-			</div>
-
-			<p class="p1">HTML
-			<div class="skill-container">
-				<div class="skill html"></div>
-			</div>
-			</p>
-
-			<p class="p1">CSS
-			<div class="skill-container">
-				<div class="skill css"></div>
-			</div>
-			</p>
-
-			<p class="p1">JAVASCRIPT
-			<div class="skill-container">
-				<div class="skill js"></div>
-			</div>
-			</p>
-
-			<p class="p1">JQUERY
-			<div class="skill-container">
-				<div class="skill jquery"></div>
-			</div>
-			</p>
-		</div>
-		<br>
-
-		<div class="box-1">
-			<div class="heading">
-				<p>SKILLS</p>
-			</div>
-
-			<p class="p1">WEBSITE DESIGN
-			<div class="skill-container">
-				<div class="skill web"></div>
-			</div>
-			</p>
-
-			<p class="p1">GRAPHIC DESIGN
-			<div class="skill-container">
-				<div class="skill gra"></div>
-			</div>
-			</p>
-
-			
-		</div>
-		<br>
-		<div class="box-1">
-			<div class="heading">
-				<p>HOBBIES</p>
-			</div>
-
-			<div class="h-div">
-				<i class="material-icons icons2">camera_roll</i>
-				<i class="material-icons icons2">music_note</i>
-				<i class="material-icons icons2">motorcycle</i>
-				<i class="material-icons icons2">border_color</i>
-			</div>
-			
-		</div>
-
 	</div>
-
-
-	<div class="right">
-		<div class="name-div">
-			<h1>MANOJ ADHIKARI</h1>
-			<p>WEBSITE DESIGNER</p>
+	<div class="resume_right">
+		<div class="resume_item resume_namerole">
+			<div class="name">{{details.user.name}}</div>
+			<div class="role">Born on {{details.user.dob}}</div>
 		</div>
-
-		<div class="box-2">
-			<h2>ABOUT ME <i class="material-icons icons3" style="font-size: 28px!important; ">perm_identity</i></h2>
-			<p class="p2">
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,<br> when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-			</p>
+		<div class="resume_item resume_education">
+			<div class="resume_title">Education</div>
+			<div class="resume_info">
+			{% for education in details.education %}
+        		<div class="resume_data">
+        		    <div class="year"></div> 
+        		    <div class="content">
+        		        <p>{{ education.institute_name }}</p>
+						<p>{{ education.degree }}</p>
+						<p>Completion Year: {{ education.graduation_year }}</p>
+        		    </div>
+        		</div>
+    		{% endfor %}
+			</div>
 		</div>
-
-
-
-		<div class="box-2">
-			<h2>EDUCATION <i class="material-icons icons3" >border_color</i></h2>
-			<p class="p3">2010-2013 <span>Lorem Ipsum is simply dummy</span></p>
-			<p class="p2">
-				Lorem Ipsum is simply dummy text of 
-			</p>
-
-			<p class="p3">2013-2016 <span>Lorem Ipsum </span></p>
-			<p class="p2">
-				Lorem Ipsum is simply dummy text of 
-			</p>
-
-			<p class="p3">2016-2021 <span>Lorem Ipsum is</span></p>
-			<p class="p2">
-				Lorem Ipsum is simply dummy text of 
-			</p>
+		<div class="resume_item resume_experience">
+			<div class="resume_title">Work Experience</div>
+			<div class="resume_info">
+				{% for experience in details.works_exp %}
+				<div class="resume_data">
+					<div class="year"></div> 
+					<div class="content">
+						<p>{{experience.company}}</p>
+						<p>{{experience.job_title}}</p>
+						<p>{{experience.job_desc}}</p>
+						<p>{{experience.no_of_years}} years of experience</p>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
 		</div>
-
-
-		<div class="box-2">
-			<h2>WORK EXPERIENCE <i class="material-icons icons3" >folder</i></h2>
-			<p class="p3">2010-2013 <span>Lorem Ipsum is simply dummy</span></p>
-			<p class="p2">
-				Lorem Ipsum is simply dummy text of 
-			</p>
-
-			<p class="p3">2013-2016 <span>Lorem Ipsum </span></p>
-			<p class="p2">
-				Lorem Ipsum is simply dummy text of 
-			</p>
-
-			
+        <div class="resume_item resume_experience">
+			<div class="resume_title">Projects</div>
+			<div class="resume_info">
+				{% for project in details.projects %}
+				<div class="resume_data">
+					<div class="year"></div>
+					<div class="content">
+						<p>{{project.project_name}}</p>
+						<p>{{project.proj_desc}}</p>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
 		</div>
-
+		<div class="resume_item resume_education">
+			<div class="resume_title">Certificates</div>
+			<div class="resume_info">
+			{% for certificate in details.certificates %}
+        		<div class="resume_data">
+        		    <div class="year"></div> 
+        		    <div class="content">
+        		        <p>{{ certificate.certificate_name }}</p>
+						<p>By {{ certificate.organisation }}</p>
+						<p>Issue Date: {{ certificate.issue_date }}</p>
+        		    </div>
+        		</div>
+    		{% endfor %}
+			</div>
+		</div>
+		<div class="resume_item resmue_interests">
+			<div class="resume_title">Interests</div>
+			<div class="resume_info">
+				<div class="interests">
+					<div class="int_icon">
+						<i class="fas fa-volleyball-ball"></i>
+					</div>
+					<div class="int_data">Volleyball</div>
+				</div>
+				<div class="interests">
+					<div class="int_icon">
+						<i class="fas fa-book-open"></i>
+					</div>
+					<div class="int_data">Reading</div>
+				</div>
+				<div class="interests">
+					<div class="int_icon">
+						<i class="fas fa-film"></i>
+					</div>
+					<div class="int_data">Movies</div>
+				</div>
+				<div class="interests">
+					<div class="int_icon">
+						<i class="fas fa-biking"></i>
+					</div>
+					<div class="int_data">Riding</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
-
-
-
 
 </body>
 </html>

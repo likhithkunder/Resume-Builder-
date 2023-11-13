@@ -427,3 +427,28 @@ btn-contact:hover {
     padding: 8px 15px;
   }
 }
+
+.logout-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+.logout-btn form {
+  display: inline-block;
+}
+
+.logout-btn button {
+  background-color: transparent;
+  color: #ECEAED;
+  border: 2px solid #ECEAED;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.logout-btn button:hover {
+  color: #ff5757;
+  border: 2px solid #ff5757;
+}

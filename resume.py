@@ -37,6 +37,7 @@ def cardFill():
 
 @app.route('/buttonClick', methods=['POST'])
 def buttonClick():
+    global current_user_id
     buttonType = request.form.get('type')
     buttonName = request.form.get('button_class')
     if buttonType == 'education':
@@ -48,7 +49,7 @@ def buttonClick():
             cursor = conn.connection.cursor()
 
             sql_query = "SELECT ed_id, institute_name, degree, graduation_year FROM education WHERE user_id = %s"
-            cursor.execute(sql_query, ('c4bc4',))
+            cursor.execute(sql_query, (current_user_id,))
             data = cursor.fetchall()
             cursor.close()
             conn.close()
@@ -67,7 +68,8 @@ def buttonClick():
             cursor = conn.connection.cursor()
 
             sql_query = "SELECT exp_id, company, job_title, job_desc, no_of_years FROM works_exp WHERE user_id = %s"
-            cursor.execute(sql_query, ('c4bc4',))
+            cursor.execute(sql_query, (current_user_id,))
+            print(current_user_id)
             data = cursor.fetchall()
             cursor.close()
             conn.close()
@@ -85,7 +87,7 @@ def buttonClick():
             cursor = conn.connection.cursor()
 
             sql_query = "SELECT project_id, project_name, proj_desc FROM projects WHERE user_id = %s"
-            cursor.execute(sql_query, ('c4bc4',))
+            cursor.execute(sql_query, (current_user_id,))
             data = cursor.fetchall()
             cursor.close()
             conn.close()
@@ -103,7 +105,7 @@ def buttonClick():
             cursor = conn.connection.cursor()
 
             sql_query = "SELECT c_id, certificate_name, organisation, issue_date FROM certificates WHERE user_id = %s"
-            cursor.execute(sql_query, ('c4bc4',))
+            cursor.execute(sql_query, (current_user_id,))
             data = cursor.fetchall()
             cursor.close()
             conn.close()
@@ -121,7 +123,7 @@ def buttonClick():
             cursor = conn.connection.cursor()
 
             sql_query = "SELECT skill_id, skill_name, proficiency FROM skills WHERE user_id = %s"
-            cursor.execute(sql_query, ('c4bc4',))
+            cursor.execute(sql_query, (current_user_id,))
             data = cursor.fetchall()
             cursor.close()
             conn.close()
@@ -170,11 +172,13 @@ def add_user():
 
 @app.route('/check_user', methods=['POST'])
 def check_user():
+    global current_user_id
+
     if request.method == 'POST':
         user_name = request.form['user_name']
         password = request.form['password']
 
-        query = text("SELECT user_id, user_name, email, name, dob, phone_no FROM user WHERE user_name = :user_name AND password = :password")
+        query = text("SELECT user_id FROM user WHERE user_name = :user_name AND password = :password")
         result = db.session.execute(query,{"user_name": user_name, "password": password})
 
         user = result.fetchone()
@@ -189,6 +193,8 @@ def check_user():
             #     "phone_no": user[5]
             # }
             # return jsonify(user_dict) 
+            user_id = user[0]
+            current_user_id = user_id
             return render_template('cards.html', message = "success", info = "Logged in Successfully")
         else:
             return redirect('/')
@@ -211,11 +217,12 @@ def get_userId():
 
 @app.route('/add_skills', methods=['POST'])
 def add_skills():
+    global current_user_id
     if request.method == 'POST':
         skill_id = generate_unique_id()
-        user_id = request.form['user_id']
+        user_id = current_user_id
         skill_name = request.form['skill_name']
-        proficiency = request.form['proficiency']
+        proficiency = request.form['proficiency'].capitalize()
 
         new_skill = {
             'skill_id': skill_id,
@@ -235,9 +242,10 @@ def add_skills():
         
 @app.route('/add_certificates', methods=['POST'])
 def add_certificates():
+    global current_user_id
     if request.method == 'POST':
         c_id = generate_unique_id()
-        user_id = request.form['user_id']
+        user_id = current_user_id
         certificate_name = request.form['certificate_name']
         organisation = request.form['organisation']
         issue_date = request.form['issue_date']
@@ -261,9 +269,10 @@ def add_certificates():
 
 @app.route('/add_education', methods=['POST'])
 def add_education():
+    global current_user_id
     if request.method == 'POST':
         ed_id = generate_unique_id()
-        user_id = request.form['user_id']
+        user_id = current_user_id
         institute_name = request.form['institute_name']
         degree = request.form['degree']
         graduation_year = request.form['graduation_year']
@@ -287,9 +296,10 @@ def add_education():
 
 @app.route('/add_projects', methods=['POST'])
 def add_project():
+    global current_user_id
     if request.method == 'POST':
         project_id = generate_unique_id()
-        user_id = request.form['user_id']
+        user_id = current_user_id
         project_name = request.form['project_name']
         proj_desc = request.form['proj_desc']
 
@@ -311,9 +321,10 @@ def add_project():
 
 @app.route('/add_workExp', methods=['POST'])
 def add_workExp():
+    global current_user_id
     if request.method == 'POST':
         exp_id = generate_unique_id()
-        user_id = request.form['user_id']
+        user_id = current_user_id
         company = request.form['company']
         job_title = request.form['job_title']
         job_desc = request.form['job_desc']
@@ -339,8 +350,9 @@ def add_workExp():
 
 @app.route('/generateResume', methods=['POST'])
 def generateResume():
+    global current_user_id
     # return render_template("res.html") 
-    return redirect("/join_tables/c4bc4")
+    return redirect(f"/join_tables/{current_user_id}")
 
 @app.route('/submission', methods=['POST'])
 def submission():
@@ -376,7 +388,10 @@ def submission():
                 transform = {'Skill Name': 'skill_name', 'Proficiency': 'proficiency'}
                 id = request.form['id']
                 update_col = request.form['dropdown']
-                update_val = request.form['update']
+                if update_col == 'Proficiency':
+                    update_val = request.form['update'].capitalize()
+                else:
+                    update_val = request.form['update']
                 update_query = text(f"UPDATE skills SET {transform[update_col]} = :update_val WHERE skill_id = :id")
 
                 db.session.execute(update_query, {'update_val': update_val, 'id': id})
@@ -512,7 +527,7 @@ def join_tables(user_id):
                     "user_name": row[1],
                     "email": row[2],
                     "name": row[3],
-                    "dob": row[4].isoformat(),
+                    "dob": row[4].strftime("%d %B %Y"),
                     "phone_no": row[5],
                 }
 
@@ -530,7 +545,7 @@ def join_tables(user_id):
                     "c_id": row[9],
                     "certificate_name": row[10],
                     "organisation": row[11],
-                    "issue_date": row[12].isoformat(),
+                    "issue_date": row[12].strftime("%d-%m-%Y"),
                 }
                 if certificate_info not in user_info["certificates"]:
                     user_info["certificates"].append(certificate_info)
@@ -571,10 +586,15 @@ def join_tables(user_id):
             # user_info["certificates"] = list(set(user_info["certificates"]))    
             # user_info["education"] = list(set(user_info["education"]))    
             # user_info["projects"] = list(set(user_info["projects"]))    
-            # user_info["works_exp"] = list(set(user_info["works_exp"]))    
-        return user_info
+            # user_info["works_exp"] = list(set(user_info["works_exp"]))  
+        # return user_info  
+        return render_template('res.html', details = user_info)
     else:
         return "No user found."
+
+@app.route('/logout', methods =['POST'])
+def logout():
+    return redirect("/login")
 
 @app.route('/success')
 def success():
