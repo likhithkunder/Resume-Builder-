@@ -184,6 +184,10 @@ body{
 	margin-bottom: 10px;
 }
 
+.int_data{
+	margin-bottom: 10px;
+}
+
 
 @media screen and (max-width: 800px){
 	.resume_wrapper .resume_right .resume_namerole{

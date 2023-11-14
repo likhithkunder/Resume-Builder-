@@ -21,12 +21,7 @@
 			</div>
 			<div class="resume_item resume_profile">
 				<div class="resume_title">Profile</div>
-				<div class="resume_info">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+				<div class="resume_info">Results-driven individual with a passion for achieving excellence and a proven track record of delivering results. With a diverse background in [mention your background or industry], I bring a unique perspective and a collaborative mindset. Eager to contribute my skills and expertise to dynamic projects and collaborate with forward-thinking teams. Known for adaptability, problem-solving, and a commitment to continuous improvement.</div>
 			</div>
 			<div class="resume_item resume_address">
 				<div class="resume_title">Address</div>
@@ -56,11 +51,40 @@
 						<div class="skills_left">{{ skill.skill_name }}</div>
 						<div class="skills_bar">
 							<p>
-								<span style="width: {{ prof[skill.proficiency] }}"></span>
+								<span style="width: {{prof[skill.proficiency]}}"></span>
 							</p>
 						</div>
 					</div>
 				{% endfor %}
+				</div>
+			</div>
+			<div class="resume_item resume_skills">
+				<div class="resume_title">Interests</div>
+				<div class="resume_info">
+					<div class="interests">
+						<div class="int_icon">
+							<i class="fas fa-volleyball-ball"></i>
+						</div>
+						<div class="int_data">Volleyball</div>
+					</div>
+					<div class="interests">
+						<div class="int_icon">
+							<i class="fas fa-book-open"></i>
+						</div>
+						<div class="int_data">Reading</div>
+					</div>
+					<div class="interests">
+						<div class="int_icon">
+							<i class="fas fa-film"></i>
+						</div>
+						<div class="int_data">Movies</div>
+					</div>
+					<div class="interests">
+						<div class="int_icon">
+							<i class="fas fa-biking"></i>
+						</div>
+						<div class="int_data">Riding</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -128,35 +152,6 @@
         		    </div>
         		</div>
     		{% endfor %}
-			</div>
-		</div>
-		<div class="resume_item resmue_interests">
-			<div class="resume_title">Interests</div>
-			<div class="resume_info">
-				<div class="interests">
-					<div class="int_icon">
-						<i class="fas fa-volleyball-ball"></i>
-					</div>
-					<div class="int_data">Volleyball</div>
-				</div>
-				<div class="interests">
-					<div class="int_icon">
-						<i class="fas fa-book-open"></i>
-					</div>
-					<div class="int_data">Reading</div>
-				</div>
-				<div class="interests">
-					<div class="int_icon">
-						<i class="fas fa-film"></i>
-					</div>
-					<div class="int_data">Movies</div>
-				</div>
-				<div class="interests">
-					<div class="int_icon">
-						<i class="fas fa-biking"></i>
-					</div>
-					<div class="int_data">Riding</div>
-				</div>
 			</div>
 		</div>
 	</div>
