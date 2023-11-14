@@ -158,7 +158,7 @@ def buttonClick():
 @app.route('/add_user', methods=['POST'])
 def add_user():
     if request.method == 'POST':
-        user_id = generate_unique_id()
+        # user_id = generate_unique_id()
         user_name = request.form['user_name']
         password = request.form['password']
         conf_password = request.form['conf_password']
@@ -169,7 +169,7 @@ def add_user():
 
         if password == conf_password:
             new_user = {
-                'user_id': user_id,
+                # 'user_id': user_id,
                 'user_name': user_name,
                 'password': password,
                 'email': email,
