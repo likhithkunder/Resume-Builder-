@@ -87,7 +87,7 @@ def buttonClick():
 
             sql_query = "SELECT exp_id, company, job_title, job_desc, no_of_years FROM works_exp WHERE user_id = %s"
             cursor.execute(sql_query, (session['current_user_id'],))
-            print(current_user_id)
+            # print(current_user_id)
             data = cursor.fetchall()
             cursor.close()
             conn.close()
@@ -238,13 +238,13 @@ def get_userId():
 def add_skills():
     # global current_user_id
     if request.method == 'POST':
-        skill_id = generate_unique_id()
+        # skill_id = generate_unique_id()
         user_id = session['current_user_id']
         skill_name = request.form['skill_name']
         proficiency = request.form['proficiency'].capitalize()
 
         new_skill = {
-            'skill_id': skill_id,
+            # 'skill_id': skill_id,
             'user_id': user_id,
             'skill_name': skill_name,
             'proficiency': proficiency
@@ -263,14 +263,14 @@ def add_skills():
 def add_certificates():
     # global current_user_id
     if request.method == 'POST':
-        c_id = generate_unique_id()
+        # c_id = generate_unique_id()
         user_id = session['current_user_id']
         certificate_name = request.form['certificate_name']
         organisation = request.form['organisation']
         issue_date = request.form['issue_date']
 
         new_cert = {
-            'c_id': c_id,
+            # 'c_id': c_id,
             'user_id': user_id,
             'certificate_name': certificate_name,
             'organisation': organisation,
@@ -290,14 +290,14 @@ def add_certificates():
 def add_education():
     # global current_user_id
     if request.method == 'POST':
-        ed_id = generate_unique_id()
+        # ed_id = generate_unique_id()
         user_id = session['current_user_id']
         institute_name = request.form['institute_name']
         degree = request.form['degree']
         graduation_year = request.form['graduation_year']
 
         new_education = {
-            'ed_id': ed_id,
+            # 'ed_id': ed_id,
             'user_id': user_id,
             'institute_name': institute_name,
             'degree': degree,
@@ -317,13 +317,13 @@ def add_education():
 def add_project():
     # global current_user_id
     if request.method == 'POST':
-        project_id = generate_unique_id()
+        # project_id = generate_unique_id()
         user_id = session['current_user_id']
         project_name = request.form['project_name']
         proj_desc = request.form['proj_desc']
 
         new_project = {
-            'project_id': project_id,
+            # 'project_id': project_id,
             'user_id': user_id,
             'project_name': project_name,
             'proj_desc': proj_desc
@@ -342,7 +342,7 @@ def add_project():
 def add_workExp():
     # global current_user_id
     if request.method == 'POST':
-        exp_id = generate_unique_id()
+        # exp_id = generate_unique_id()
         user_id = session['current_user_id']
         company = request.form['company']
         job_title = request.form['job_title']
@@ -350,7 +350,7 @@ def add_workExp():
         no_of_years = request.form['no_of_years']
 
         new_workExp = {
-            'exp_id': exp_id,
+            # 'exp_id': exp_id,
             'user_id': user_id,
             'company': company,
             'job_title': job_title,

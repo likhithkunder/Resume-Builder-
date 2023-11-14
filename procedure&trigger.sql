@@ -13,7 +13,6 @@ END //
 DELIMITER ;
 
 
-
 DELIMITER //
 CREATE TRIGGER before_user_insert
 BEFORE INSERT ON user
@@ -22,4 +21,59 @@ BEGIN
     SET NEW.user_id = SUBSTRING(MD5(CONCAT(NOW(), RAND())), 1, 5);
 END;
 //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER before_education_insert
+BEFORE INSERT ON education
+FOR EACH ROW
+BEGIN
+    SET NEW.ed_id = SUBSTRING(MD5(CONCAT(NOW(), RAND())), 1, 5);
+END;
+//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER before_skills_insert
+BEFORE INSERT ON skills
+FOR EACH ROW
+BEGIN
+    SET NEW.skill_id = SUBSTRING(MD5(CONCAT(NOW(), RAND())), 1, 5);
+END;
+//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER before_projects_insert
+BEFORE INSERT ON projects
+FOR EACH ROW
+BEGIN
+    SET NEW.project_id = SUBSTRING(MD5(CONCAT(NOW(), RAND())), 1, 5);
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER before_certificates_insert
+BEFORE INSERT ON certificates
+FOR EACH ROW
+BEGIN
+    SET NEW.c_id = SUBSTRING(MD5(CONCAT(NOW(), RAND())), 1, 5);
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER before_experience_insert
+BEFORE INSERT ON works_exp
+FOR EACH ROW
+BEGIN
+    SET NEW.exp_id = SUBSTRING(MD5(CONCAT(NOW(), RAND())), 1, 5);
+END //
+
 DELIMITER ;
