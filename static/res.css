@@ -188,6 +188,17 @@ body{
 	margin-bottom: 10px;
 }
 
+.bi-download {
+    position: absolute;
+    top: 65px; 
+    right: 265px; 
+    cursor: pointer;
+}
+
+.bi-download:hover {
+	fill: #0175b2; 
+	cursor: pointer; 
+}
 
 @media screen and (max-width: 800px){
 	.resume_wrapper .resume_right .resume_namerole{
