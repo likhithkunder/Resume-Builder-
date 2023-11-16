@@ -278,7 +278,6 @@ btn-contact:hover {
     --current-color2: #404457;
 }
 
-/* Import Google font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 * {
   margin: 0;
@@ -461,7 +460,7 @@ btn-contact:hover {
 .dot {
   width: 20px;
   height: 20px;
-  background-color: #3498db; 
+  background-color: #007bff; 
   border-radius: 50%;
   margin: 0 8px;
   animation: bounce 0.8s infinite alternate;

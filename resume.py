@@ -689,6 +689,10 @@ def join_tables(user_id):
     else:
         return "No user found."
 
+@app.route('/back', methods =['POST'])
+def back():
+    return render_template('cards.html')
+
 @app.route('/logout', methods =['POST'])
 def logout():
     session.pop('current_user_id', default=None)

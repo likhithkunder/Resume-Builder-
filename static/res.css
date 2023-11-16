@@ -243,3 +243,28 @@ body{
 		font-size: 24px;
 	}
 }
+
+.back-btn {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+}
+  
+  .back-btn form {
+		display: inline-block;
+  }
+  
+  .back-btn button {
+	background-color: transparent;
+	color: #26252d;
+	border: 2px solid #26252d;
+	padding: 8px 12px;
+	cursor: pointer;
+	font-size: 16px;
+	border-radius: 4px;
+  }
+  
+  .back-btn button:hover {
+	color: #7f7f81;
+	border: 2px solid #7f7f81;
+  }

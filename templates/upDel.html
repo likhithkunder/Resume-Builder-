@@ -45,10 +45,16 @@
     </style>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='ud.css') }}">
     <script src="{{ url_for('static', filename='inputChange.js') }}"></script>
+    <script src="{{ url_for('static', filename='toast.js') }}"></script>
 
 </head>
 <body>
     <ul class="notifications"></ul>
+    <div class="back-btn">
+		<form action="/back" method="post">
+		  <button type="submit">Go back</button>
+		</form>
+	</div>
 
     <h1>Your {{title}}</h1>
     <table>
