@@ -12,6 +12,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
   <script src="{{ url_for('static', filename='toast.js') }}"></script>
+  <script src="{{ url_for('static', filename='loader.js') }}"></script>
 
 </head>
 
@@ -159,7 +160,12 @@
         </label>
       </div>
       <form action="/generateResume" method="post">
-        <button class="generate-resume-btn" type="submit">Generate Resume</button>
+        <button class="generate-resume-btn" id="myButton" type="submit" onclick="startLoading()">Generate Resume</button>
+        <div id="loader" class="loader-container">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
       </form>
   </div>
 

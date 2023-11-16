@@ -5,6 +5,7 @@ from datetime import datetime
 from sqlalchemy import text
 from dotenv import dotenv_values
 import secrets
+import time
 
 app = Flask(__name__)
 
@@ -371,6 +372,7 @@ def add_workExp():
 @app.route('/generateResume', methods=['POST'])
 def generateResume():
     # return render_template("res.html") 
+    time.sleep(5)
     return redirect(f"/join_tables/{session['current_user_id']}")
 
 @app.route('/submission', methods=['POST'])
