@@ -14,6 +14,18 @@ create table `user`(
     primary key (`user_id`)
 ) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_0900_ai_ci;
 
+drop table if exists `recruiter`;
+create table `recruiter`(
+    `recruiter_id` varchar(15) not null,
+    `recruiter_name` varchar(15) not null,
+    `password` varchar(15) not null,
+    `email` varchar(20) not null,
+    `name` varchar(20) not null,
+    `dob` date,
+    `phone_no` varchar(10) not null,
+    primary key (`recruiter_id`)
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_0900_ai_ci;
+
 drop table if exists `education`;
 create table `education`(
     `ed_id` varchar(10) not null,

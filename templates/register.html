@@ -5,11 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Page</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles_r.css') }}">
+    <script src="{{ url_for('static', filename='inputValid.js') }}"></script>
 </head>
 <body>
+    <div class="back-btn">
+		<form action="/transfer" method="post">
+            {% if bType == "user" %} 
+                <input type="hidden" name="which" value="user">
+                <button type="submit" name="type" value="register">Register as Recruiter</button>
+            {% elif bType == "rec" %}
+                <input type="hidden" name="which" value="rec">
+                <button type="submit" name="type" value="register">Register as User</button>
+            {% endif %}
+		</form>
+	</div>
     <section>
-        <form action="/add_user" method="post" class="form-container">
-            <h1>Register</h1>
+        <form action="/add_people" method="post" class="form-container">
+            <h1>{{who}} Register</h1>
             
             <div class="form-row">
                 <div class="inputbox">
@@ -28,14 +40,14 @@
             <div class="form-row">
                 <div class="inputbox">
                     <ion-icon name="mail-outline"></ion-icon>
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" pattern=".*@gmail\.com" required>
                     <label for="">Email</label>
                 </div>
 
                 <div class="inputbox">
                     <p class="new">DOB</p>
                     <ion-icon name="mail-outline"></ion-icon>
-                    <input type="date" required name="dob">
+                    <input type="date" id="date" required name="dob">
                 </div>
             </div>
 
@@ -43,12 +55,16 @@
                 <div class="inputbox">
                     <ion-icon name="mail-outline"></ion-icon>
                     <input type="text" name="user_name" required>
-                    <label for="">Username</label>
+                    {% if bType == "user" %}
+                        <label for="">Username</label>
+                    {% elif bType == "rec" %}
+                        <label for="">Recruitername</label>
+                    {% endif %}
                 </div>
 
                 <div class="inputbox">
                     <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input type="password" name="password" required>
+                    <input type="password" id="input1" name="password" required>
                     <label for="">Password</label>
                 </div>
             </div>
@@ -56,7 +72,7 @@
             <div class="form-row">
                 <div class="inputbox">
                     <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input type="password" name="conf_password" required>
+                    <input type="password" id="input2" name="conf_password" required>
                     <label for="">Confirm Password</label>
                 </div>
             </div>
@@ -66,10 +82,14 @@
                 <a href="#">Forget Password</a>
             </div> -->
             
-            <button>Sign up</button>
+            <button type="submit" name="buttonType" value="{{bType}}">Sign up</button>
             
             <div class="register">
-                <p>Already have an account: <a href="/login">Login</a></p>
+                {% if bType == "user" %}
+                    <p>Already have an account: <a href="/login">Login</a></p>
+                {% elif bType == "rec" %}
+                    <p>Already have an account: <a href="/recLog">Login</a></p>
+                {% endif %}
             </div>
         </form>
     </section>

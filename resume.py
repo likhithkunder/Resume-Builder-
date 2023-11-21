@@ -43,16 +43,39 @@ def validate(table_name, table_name_id_column, id):
 
 @app.route('/', methods=['GET'])
 def reg():
-    return render_template("register.html")  
+    return render_template("register.html", who = "User", bType = "user") 
+
+@app.route('/recReg', methods=['GET'])
+def recReg():
+    return render_template("register.html", who = "Recruiter", bType = "rec")
 
 @app.route('/login', methods=['GET'])
 def log():
-    return render_template("login.html") 
+    return render_template("login.html", who = "User", bType = "user")
+
+@app.route('/recLog', methods=['GET'])
+def recLog():
+    return render_template("login.html", who = "Recruiter", bType = "rec")  
 
 @app.route('/cardFill', methods=['POST'])
 def cardFill():
     buttonType = request.form.get('type')
     return render_template("buttons.html", message = buttonType)
+
+@app.route('/transfer', methods=['POST'])
+def transfer():
+    r_lType = request.form.get('type')
+    who = request.form.get('which')
+    if r_lType == "register":
+        if who == "user":
+            return redirect("/recReg")
+        elif who == "rec":
+            return redirect("/")
+    if r_lType == "login":
+        if who == "user":
+            return redirect("/recLog")
+        elif who == "rec":
+            return redirect("/login")
 
 @app.route('/buttonClick', methods=['POST'])
 def buttonClick():
@@ -156,68 +179,117 @@ def buttonClick():
         
     
 
-@app.route('/add_user', methods=['POST'])
+@app.route('/add_people', methods=['POST'])
 def add_user():
     if request.method == 'POST':
-        # user_id = generate_unique_id()
-        user_name = request.form['user_name']
-        password = request.form['password']
-        conf_password = request.form['conf_password']
-        email = request.form['email']
-        name = request.form['name']
-        dob = str(datetime.strptime(request.form['dob'], '%Y-%m-%d').date())
-        phone_no = request.form['phone_no']
+        buttonType = request.form.get("buttonType")
 
-        if password == conf_password:
-            new_user = {
-                # 'user_id': user_id,
-                'user_name': user_name,
-                'password': password,
-                'email': email,
-                'name': name,
-                'dob': dob,
-                'phone_no': phone_no
-            }
+        if buttonType == "user":
+            # user_id = generate_unique_id()
+            user_name = request.form['user_name']
+            password = request.form['password']
+            conf_password = request.form['conf_password']
+            email = request.form['email']
+            name = request.form['name']
+            dob = str(datetime.strptime(request.form['dob'], '%Y-%m-%d').date())
+            phone_no = request.form['phone_no']
 
-            try:
-                insert_query = text(f"INSERT INTO user ({', '.join(new_user.keys())}) VALUES ({', '.join([':' + key for key in new_user.keys()])})")
-                db.session.execute(insert_query, new_user)
-                db.session.commit()
-                return redirect('/login')
-            except Exception as e:
+            if password == conf_password:
+                new_user = {
+                    # 'user_id': user_id,
+                    'user_name': user_name,
+                    'password': password,
+                    'email': email,
+                    'name': name,
+                    'dob': dob,
+                    'phone_no': phone_no
+                }
+
+                try:
+                    insert_query = text(f"INSERT INTO user ({', '.join(new_user.keys())}) VALUES ({', '.join([':' + key for key in new_user.keys()])})")
+                    db.session.execute(insert_query, new_user)
+                    db.session.commit()
+                    return redirect('/login')
+                except Exception as e:
+                    return redirect('/')
+            else:
                 return redirect('/')
-        else:
-            return redirect('/')
+            
+        elif buttonType == "rec":
+            recruiter_name = request.form['user_name']
+            password = request.form['password']
+            conf_password = request.form['conf_password']
+            email = request.form['email']
+            name = request.form['name']
+            dob = str(datetime.strptime(request.form['dob'], '%Y-%m-%d').date())
+            phone_no = request.form['phone_no']
 
-@app.route('/check_user', methods=['POST'])
+            if password == conf_password:
+                new_recruiter = {
+                    'recruiter_name': recruiter_name,
+                    'password': password,
+                    'email': email,
+                    'name': name,
+                    'dob': dob,
+                    'phone_no': phone_no
+                }
+
+                try:
+                    insert_query = text(f"INSERT INTO recruiter ({', '.join(new_recruiter.keys())}) VALUES ({', '.join([':' + key for key in new_recruiter.keys()])})")
+                    db.session.execute(insert_query, new_recruiter)
+                    db.session.commit()
+                    return redirect('/recLog')
+                except Exception as e:
+                    error_message = str(e)  # Convert the exception to a string
+                    return error_message
+            else:
+                return redirect('/recReg')
+
+@app.route('/check_people', methods=['POST'])
 def check_user():
-    global current_user_id
+    buttonType = request.form.get("buttonType")
 
-    if request.method == 'POST':
-        user_name = request.form['user_name']
+    if buttonType == "user":
+        global current_user_id
+        global current_rec_id
+
+        if request.method == 'POST':
+            user_name = request.form['user_name']
+            password = request.form['password']
+
+            query = text("SELECT user_id FROM user WHERE user_name = :user_name AND password = :password")
+            result = db.session.execute(query,{"user_name": user_name, "password": password})
+
+            user = result.fetchone()
+
+            if user:
+                # user_dict = {
+                #     "user_id": user[0],
+                #     "user_name": user[1],
+                #     "email": user[2],
+                #     "name": user[3],
+                #     "dob": user[4],
+                #     "phone_no": user[5]
+                # }
+                # return jsonify(user_dict)
+                session['current_user_id'] = user[0]
+                # user_id = user[0]
+                # current_user_id = user_id
+                return render_template('cards.html', message = "success", info = "Logged in Successfully")
+            else:
+                return redirect('/')
+        
+    elif buttonType == "rec":
+        recruiter_name = request.form['user_name']
         password = request.form['password']
-
-        query = text("SELECT user_id FROM user WHERE user_name = :user_name AND password = :password")
-        result = db.session.execute(query,{"user_name": user_name, "password": password})
-
-        user = result.fetchone()
-
-        if user:
-            # user_dict = {
-            #     "user_id": user[0],
-            #     "user_name": user[1],
-            #     "email": user[2],
-            #     "name": user[3],
-            #     "dob": user[4],
-            #     "phone_no": user[5]
-            # }
-            # return jsonify(user_dict)
-            session['current_user_id'] = user[0]
-            # user_id = user[0]
-            # current_user_id = user_id
-            return render_template('cards.html', message = "success", info = "Logged in Successfully")
+        query = text("SELECT recruiter_id FROM recruiter WHERE recruiter_name = :recruiter_name AND password = :password")
+        result = db.session.execute(query,{"recruiter_name": recruiter_name, "password": password})
+        recruiter = result.fetchone()
+        if recruiter:
+            session['current_rec_id'] = recruiter[0]
+            return render_template('rec.html', message = "success", info = "Logged in Successfully")
         else:
-            return redirect('/')
+            return redirect('/recReg')
 
 @app.route('/get_userId', methods=['GET'])
 def get_userId():
@@ -695,8 +767,13 @@ def back():
 
 @app.route('/logout', methods =['POST'])
 def logout():
-    session.pop('current_user_id', default=None)
-    return redirect("/login")
+    buttonType = request.form.get("type")
+    if buttonType == "user":
+        session.pop('current_user_id', default=None)
+        return redirect("/login")
+    elif buttonType == "rec":
+        session.pop('current_rec_id', default=None)
+        return redirect("/recLog")
 
 @app.route('/success')
 def success():

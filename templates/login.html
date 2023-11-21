@@ -7,13 +7,29 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles_l.css') }}">
 </head>
 <body>
+    <div class="back-btn">
+		<form action="/transfer" method="post">
+            {% if bType == "user" %}
+                <input type="hidden" name="which" value="user">
+                <button type="submit" name="type" value="login">Login as Recruiter</button>
+            {% elif bType == "rec" %}
+                <input type="hidden" name="which" value="rec">
+                <button type="submit" name="type" value="login">Login as User</button>
+            {% endif %}
+		</form>
+	</div>
+
     <section>
-        <form action="check_user" method="post">
-            <h1>Login</h1>
+        <form action="check_people" method="post">
+            <h1>{{who}} Login</h1>
             <div class="inputbox">
                 <ion-icon name="mail-outline"></ion-icon>
                 <input type="text" name="user_name" autocomplete="off" required>
-                <label for="">Username</label>
+                {% if bType == "user" %}
+                    <label for="">Username</label>
+                {% elif bType == "rec" %}
+                    <label for="">Recruitername</label>
+                {% endif %}
             </div>
             <div class="inputbox">
                 <ion-icon name="lock-closed-outline"></ion-icon>
@@ -24,9 +40,14 @@
                 <label for=""><input type="checkbox">Remember Me</label>
                 <a href="#">Forget Password</a>
             </div> -->
-            <button>Log in</button>
+            <button type="submit" name="buttonType" value="{{bType}}">Log in</button>
+
             <div class="register">
-                <p>Don't have an account : <a href="/">Register</a></p>
+                {% if bType == "user" %}
+                    <p>Don't have an account : <a href="/">Register</a></p>
+                {% elif bType == "rec" %}
+                    <p>Don't have an account : <a href="/recReg">Register</a></p>
+                {% endif %}
             </div>
         </form>
     </section>

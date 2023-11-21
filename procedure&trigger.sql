@@ -23,6 +23,16 @@ END;
 //
 DELIMITER ;
 
+DELIMITER //
+CREATE TRIGGER before_recruiter_insert
+BEFORE INSERT ON recruiter
+FOR EACH ROW
+BEGIN
+    SET NEW.recruiter_id = SUBSTRING(MD5(CONCAT(NOW(), RAND())), 1, 5);
+END;
+//
+DELIMITER ;
+
 
 DELIMITER //
 CREATE TRIGGER before_education_insert

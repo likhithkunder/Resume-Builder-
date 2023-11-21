@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown Example</title>
+
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}"> -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='new.css') }}">
+
+  <!-- <style>
+    .dropdown-container {
+      margin: 20px;
+    }
+
+    label {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    select {
+      font-size: 16px;
+      padding: 5px;
+      /* Add your specific dropdown style here */
+      /* For example, you can add a border and background color */
+      border: 1px solid #ccc;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+  </style> -->
+</head>
+
+<body>
+
+  <div class="logout-btn">
+    <form action="/logout" method="post">
+      <button type="submit" name="type" value="rec">Logout</button>
+    </form>
+  </div>
+
+  <div class="dropdown-container">
+    <select id="dropdownMenu" name="category">
+      <option value="skills">Skills</option>
+      <option value="workExp">Work Exp</option>
+      <option value="certificates">Certificates</option>
+    </select>
+  </div>
+
+</body>
+
+</html>
