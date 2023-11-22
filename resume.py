@@ -295,11 +295,11 @@ def check_user():
 def proceed():
     selected_option = request.form.get('option') 
     if selected_option == "sk_wE":
-        return render_template('recsel.html', title = "Skills and Work Experience", tag1 = "Skill Name", tag2 = "Work Experience")
+        return render_template('recsel.html', title = "Skills and Work Experience", tag1 = "Skill Name", tag2 = "Work Experience", info = "first")
     elif selected_option == "ce_pr":
-        return render_template('recsel.html', title = "Certificates and Projects", tag1 = "Certificate Name", tag2 = "Project Name")
+        return render_template('recsel.html', title = "Certificates and Projects", tag1 = "Certificate Name", tag2 = "Project Name", info = "second")
     elif selected_option == "ed_sk":
-        return render_template('recsel.html', title = "Education and Skills", tag1 = "Graduation Year", tag2 = "Proficiency")
+        return render_template('recsel.html', title = "Education and Skills", tag1 = "Graduation Year", tag2 = "Proficiency", info = "third")
     elif selected_option == "":
         return render_template('rec.html', message = "error", info = "Please Fill")
 
@@ -452,6 +452,16 @@ def add_workExp():
         except Exception as e:
             # return f"An error occurred: {str(e)}"     
             return render_template('cards.html', message="error", info="An error occurred")      
+
+@app.route('/findDetails', methods=['POST'])
+def findDetails():
+    buttonType = request.form.get("type")
+    if buttonType == "first":
+        pass
+    elif buttonType == "second":
+        pass
+    elif buttonType == "third":
+        pass
 
 @app.route('/generateResume', methods=['POST'])
 def generateResume():

@@ -58,7 +58,7 @@
 
     <h1>Find {{title}}</h1>
 
-    <form id="survey-form" action="/submission" method="post">
+    <form id="survey-form" action="/findDetails" method="post">
         <fieldset class="fieldset">
         
             <div class="sub-group">
@@ -82,7 +82,7 @@
             <!-- </div> -->
         </fieldset>
     </form>
-    <table>
+    <!-- <table>
         <tr>
         {% for column in columns %}
             <th>{{ column }}</th>
@@ -95,7 +95,8 @@
             {% endfor %}
         </tr>
         {% endfor %}
-    </table>
+    </table> -->
+
     <script>
         function updateInputType() {
             var dropdown = document.getElementById("dropdown");
