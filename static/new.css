@@ -452,6 +452,29 @@ btn-contact:hover {
   border: 2px solid #ff5757;
 }
 
+.proceed-btn {
+  position: fixed;
+}
+
+.proceed-btn form {
+  display: inline-block;
+}
+
+.proceed-btn button {
+  background-color: transparent;
+  color: #ECEAED;
+  border: 2px solid #ECEAED;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.proceed-btn button:hover {
+  color: rgb(106, 212, 106);
+  border: 2px solid rgb(106, 212, 106);
+}
+
 .loader-container {
   display: none;
   align-items: center;
@@ -481,12 +504,10 @@ btn-contact:hover {
 }
 
 .dropdown-container {
-  margin: 20px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  margin-top: 60px;
 }
 
 label {
@@ -503,4 +524,5 @@ select {
   background-color: transparent;
   backdrop-filter: blur(20px);
   border-radius: 10px;
+  margin-top: 200px;
 }

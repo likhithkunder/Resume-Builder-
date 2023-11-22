@@ -7,29 +7,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dropdown Example</title>
 
-  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}"> -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='new.css') }}">
 
-  <!-- <style>
-    .dropdown-container {
-      margin: 20px;
-    }
-
-    label {
-      font-size: 18px;
-      margin-right: 10px;
-    }
-
-    select {
-      font-size: 16px;
-      padding: 5px;
-      /* Add your specific dropdown style here */
-      /* For example, you can add a border and background color */
-      border: 1px solid #ccc;
-      background-color: #fff;
+  <style>
+    /* .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin-top: 30px;
+    } */
+    /* button {
+      display: flex;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
       border-radius: 4px;
-    }
-  </style> -->
+      cursor: pointer;
+      justify-content: center;
+      align-items: center;
+    } */
+  </style>
 </head>
 
 <body>
@@ -39,15 +39,29 @@
       <button type="submit" name="type" value="rec">Logout</button>
     </form>
   </div>
-
+  
   <div class="dropdown-container">
-    <select id="dropdownMenu" name="category">
-      <option value="skills">Skills</option>
-      <option value="workExp">Work Exp</option>
-      <option value="certificates">Certificates</option>
+    <select id="dropdownMenu1" name="category" required>
+      <option value="" disabled selected>Find users based on</option>
+      <option value="sk_wE">Skills and Work Experience</option>
+      <option value="ce_pr">Certificates and Projects</option>
+      <option value="ed_sk">Education and Skills</option>
     </select>
   </div>
 
+  <div class="proceed-btn">
+    <form id="proceedForm" action="/proceed" method="post">
+      <button type="submit" name="option">Proceed</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('proceedForm').addEventListener('submit', function() {
+      var dropdown = document.getElementById('dropdownMenu1');
+      var button = document.querySelector('.proceed-btn button');
+      button.value = dropdown.value;
+    });
+  </script>
 </body>
 
 </html>
