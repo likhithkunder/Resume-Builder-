@@ -63,12 +63,20 @@
         
             <div class="sub-group">
                 <label class="left" id="name-label" for="institute_name">{{tag1}}:</label>
-                <input type="text" name="id" class="right input-field" id="name" placeholder="Enter ID" required>
+                {% if tag1 == "Graduation Year" %}
+                    <input type="number" name="detail1" class="right input-field" id="name" placeholder="Enter details" required>
+                {% else %}
+                    <input type="text" name="detail1" class="right input-field" id="name" placeholder="Enter details" required>
+                {% endif %}
             </div>
 
             <div class="sub-group">
                 <label class="left" id="email-label" for="degree">{{tag2}}:</label>
-                <input type="text" name="update" class="right input-field" placeholder="Enter update" id="email" required>
+                {% if tag2 == "Work Experience" %}
+                    <input type="number" name="detail2" class="right input-field" placeholder="Enter details" id="email" required>
+                {% else %}
+                    <input type="text" name="detail2" class="right input-field" placeholder="Enter details" id="email" required>
+                {% endif %}
             </div>
         </fieldset>
     
@@ -82,7 +90,7 @@
             <!-- </div> -->
         </fieldset>
     </form>
-    <!-- <table>
+    <table>
         <tr>
         {% for column in columns %}
             <th>{{ column }}</th>
@@ -95,7 +103,7 @@
             {% endfor %}
         </tr>
         {% endfor %}
-    </table> -->
+    </table>
 
     <script>
         function updateInputType() {

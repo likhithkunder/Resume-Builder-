@@ -299,9 +299,9 @@ def proceed():
     elif selected_option == "ce_pr":
         return render_template('recsel.html', title = "Certificates and Projects", tag1 = "Certificate Name", tag2 = "Project Name", info = "second")
     elif selected_option == "ed_sk":
-        return render_template('recsel.html', title = "Education and Skills", tag1 = "Graduation Year", tag2 = "Proficiency", info = "third")
+        return render_template('recsel.html', title = "Education and Job", tag1 = "Graduation Year", tag2 = "Job Title", info = "third")
     elif selected_option == "":
-        return render_template('rec.html', message = "error", info = "Please Fill")
+        return render_template('rec.html', message = "error", info = "Please select an option")
 
 @app.route('/get_userId', methods=['GET'])
 def get_userId():
@@ -457,11 +457,97 @@ def add_workExp():
 def findDetails():
     buttonType = request.form.get("type")
     if buttonType == "first":
-        pass
+        skill_name = request.form.get('detail1')
+        work_experience = int(request.form.get('detail2'))
+
+        query = text("""
+            SELECT user.user_id, user.name, skills.skill_name, works_exp.no_of_years
+            FROM user
+            JOIN skills ON user.user_id = skills.user_id
+            JOIN works_exp ON user.user_id = works_exp.user_id
+            WHERE skills.skill_name = :skill_name AND works_exp.no_of_years = :work_experience
+        """)
+        # query = text("""
+        #     SELECT distinct(user.user_id), user.name, skills.skill_name, works_exp.no_of_years
+        #     FROM user
+        #     JOIN skills ON user.user_id = skills.user_id
+        #     JOIN works_exp ON user.user_id = works_exp.user_id
+        #     WHERE skills.skill_name = :skill_name
+            
+        #     UNION
+            
+        #     SELECT distinct(user.user_id), user.name, skills.skill_name, works_exp.no_of_years
+        #     FROM user
+        #     JOIN skills ON user.user_id = skills.user_id
+        #     JOIN works_exp ON user.user_id = works_exp.user_id
+        #     WHERE works_exp.no_of_years = :work_experience;
+        # """)
+        result = db.session.execute(query, {'skill_name':skill_name, 'work_experience':work_experience})
+        # print(result)
+        result_list = [
+            [row[0], row[1], row[2], row[3]]
+            for row in result
+        ]
+
+        attributes = ["User ID", "Full Name", "Skill Name", "Work Experience"]
+
+        return render_template('recsel.html', title = "Skills and Work Experience", tag1 = "Skill Name", tag2 = "Work Experience", info = "first", data = result_list, columns = attributes)
     elif buttonType == "second":
-        pass
+        certificate_name = request.form.get('detail1')
+        project_name = request.form.get('detail2')
+
+        query = text("""
+            SELECT user.user_id, user.name, certificates.certificate_name, projects.project_name
+            FROM user
+            JOIN certificates ON user.user_id = certificates.user_id
+            JOIN projects ON user.user_id = projects.user_id
+            WHERE certificates.certificate_name = :certificate_name AND projects.project_name = :project_name
+        """)
+        # query = text("""
+        #     SELECT distinct(user.user_id), user.name, certificates.certificate_name, projects.project_name
+        #     FROM user
+        #     JOIN certificates ON user.user_id = certificates.user_id
+        #     JOIN projects ON user.user_id = projects.user_id
+        #     WHERE certificates.certificate_name = :certificate_name
+            
+        #     UNION
+            
+        #     SELECT distinct(user.user_id), user.name, certificates.certificate_name, projects.project_name
+        #     FROM user
+        #     JOIN certificates ON user.user_id = certificates.user_id
+        #     JOIN projects ON user.user_id = projects.user_id
+        #     WHERE projects.project_name = :project_name
+        # """)
+        result = db.session.execute(query, {'project_name':project_name, 'certificate_name':certificate_name})
+        # print(result)
+        result_list = [
+            [row[0], row[1], row[2], row[3]]
+            for row in result
+        ]
+
+        attributes = ["User ID", "Full Name", "Certificate Name", "Project Name"]
+        return render_template('recsel.html', title = "Certificates and Projects", tag1 = "Certificate Name", tag2 = "Project Name", info = "second", data = result_list, columns = attributes)
     elif buttonType == "third":
-        pass
+        graduation_year = request.form.get('detail1')
+        job_title = request.form.get('detail2')
+
+        query = text("""
+            SELECT user.user_id, user.name, education.graduation_year, works_exp.job_title
+            FROM user
+            JOIN education ON user.user_id = education.user_id
+            JOIN works_exp ON user.user_id = works_exp.user_id
+            WHERE education.graduation_year = :graduation_year AND works_exp.job_title = :job_title
+        """)
+        
+        result = db.session.execute(query, {'graduation_year':graduation_year, 'job_title':job_title})
+        # print(result)
+        result_list = [
+            [row[0], row[1], row[2], row[3]]
+            for row in result
+        ]
+
+        attributes = ["User ID", "Full Name", "Graduation Year", "Job Title"]
+        return render_template('recsel.html', title = "Education and Job", tag1 = "Graduation Year", tag2 = "Job Title", info = "third", data = result_list, columns = attributes)
 
 @app.route('/generateResume', methods=['POST'])
 def generateResume():
