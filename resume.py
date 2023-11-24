@@ -300,6 +300,12 @@ def proceed():
         return render_template('recsel.html', title = "Certificates and Projects", tag1 = "Certificate Name", tag2 = "Project Name", info = "second")
     elif selected_option == "ed_sk":
         return render_template('recsel.html', title = "Education and Job", tag1 = "Graduation Year", tag2 = "Job Title", info = "third")
+    elif selected_option == "no_pro":
+        return render_template('recsel.html', title = "Number of projects", tag1 = "remove", tag2 = "remove", info = "forth")
+    elif selected_option == "no_jo":
+        return render_template('recsel.html', title = "Number of jobs worked", tag1 = "remove", tag2 = "remove", info = "fifth")
+    elif selected_option == "no_cer":
+        return render_template('recsel.html', title = "Number of certificates", tag1 = "remove", tag2 = "remove", info = "sixth")
     elif selected_option == "":
         return render_template('rec.html', message = "error", info = "Please select an option")
 
@@ -548,6 +554,53 @@ def findDetails():
 
         attributes = ["User ID", "Full Name", "Graduation Year", "Job Title"]
         return render_template('recsel.html', title = "Education and Job", tag1 = "Graduation Year", tag2 = "Job Title", info = "third", data = result_list, columns = attributes)
+    elif buttonType == "forth":
+        query = text("""
+            SELECT user.user_id, user.name, GROUP_CONCAT(projects.project_name ORDER BY projects.project_name ASC) AS all_projects, COUNT(projects.project_id) AS no_of_projects
+            FROM user
+            JOIN projects ON user.user_id = projects.user_id
+            GROUP BY user.user_id;
+        """)
+        result = db.session.execute(query)
+        result_list = [
+            [row[0], row[1], row[2], row[3]]
+            for row in result
+        ]
+        print(result_list)
+        attributes = ["User ID", "Full Name", "All Projects", "Number of projects"]
+        return render_template('recsel.html', title = "Number of projects", tag1 = "remove", tag2 = "remove", info = "forth", data = result_list, columns = attributes)
+    elif buttonType == "fifth":
+        query = text("""
+            SELECT user.user_id, user.name, GROUP_CONCAT(works_exp.job_title ORDER BY works_exp.job_title ASC) AS all_jobs, COUNT(works_exp.exp_id) AS no_of_jobs
+            FROM user
+            JOIN works_exp ON user.user_id = works_exp.user_id
+            GROUP BY user.user_id;
+        """)
+        result = db.session.execute(query)
+        result_list = [
+            [row[0], row[1], row[2], row[3]]
+            for row in result
+        ]
+        print(result_list)
+        attributes = ["User ID", "Full Name", "All Jobs", "Number of jobs"]
+        return render_template('recsel.html', title = "Number of jobs worked", tag1 = "remove", tag2 = "remove", info = "fifth", data = result_list, columns = attributes)
+
+    elif buttonType == "sixth":
+        query = text("""
+            SELECT user.user_id, user.name, GROUP_CONCAT(certificates.certificate_name ORDER BY certificates.certificate_name ASC) AS all_certificates, COUNT(certificates.c_id) AS no_of_certificates
+            FROM user
+            JOIN certificates ON user.user_id = certificates.user_id
+            GROUP BY user.user_id;
+        """)
+        result = db.session.execute(query)
+        result_list = [
+            [row[0], row[1], row[2], row[3]]
+            for row in result
+        ]
+        print(result_list)
+        attributes = ["User ID", "Full Name", "All Certificates", "Number of certificates"]
+        return render_template('recsel.html', title = "Number of certificates", tag1 = "remove", tag2 = "remove", info = "sixth", data = result_list, columns = attributes)
+
 
 @app.route('/generateResume', methods=['POST'])
 def generateResume():

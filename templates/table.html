@@ -1,0 +1,16 @@
+{% if data and data is not none %}
+    <table>
+        <tr>
+            <th>{{ tag1 }}</th>
+            <th>{{ tag2 }}</th>
+        </tr>
+        {% for value in data %}
+            <tr>
+                <td>{{ value[0] }}</td>
+                <td>{{ value[1] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No data found.</p>
+{% endif %}
